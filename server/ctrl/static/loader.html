@@ -189,9 +189,16 @@ class ComponentBootScreen extends HTMLElement {
                 </circle>
              </svg>
              <style>
-                 html, body, #app { height: 100%; margin: 0; }
-                 #app { display: flex; }
-                 component-bootscreen { margin: auto; }
+                html, body, #app { height: 100%; margin: 0; }
+                #app { display: flex; }
+                component-bootscreen { margin: auto; }
+                body.dark-mode html, body, #app {
+                    background: var(--bg-color, #232426);
+                }
+                body.dark-mode circle {
+                    fill: var(--color, #f1f1f1);
+                    stroke: var(--color, #f1f1f1);
+                }
              </style>
         </div>`;
     }

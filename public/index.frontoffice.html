@@ -4,6 +4,13 @@
         <meta charset="UTF-8">
         <title></title>
         <base href="{{ .base }}">
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.body.classList.add('dark-mode');
+                }
+            })
+        </script>
         {{- range .bundle }}
         <link rel="modulepreload" href="{{ . }}" />
         {{- end }}

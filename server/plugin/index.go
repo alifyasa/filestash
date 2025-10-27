@@ -2,6 +2,7 @@ package plugin
 
 import (
 	. "github.com/mickael-kerjean/filestash/server/common"
+	_ "github.com/mickael-kerjean/filestash/server/plugin/plg_authenticate_admin"
 	_ "github.com/mickael-kerjean/filestash/server/plugin/plg_authenticate_htpasswd"
 	_ "github.com/mickael-kerjean/filestash/server/plugin/plg_authenticate_local"
 	_ "github.com/mickael-kerjean/filestash/server/plugin/plg_authenticate_passthrough"
@@ -29,6 +30,7 @@ import (
 	_ "github.com/mickael-kerjean/filestash/server/plugin/plg_handler_site"
 	_ "github.com/mickael-kerjean/filestash/server/plugin/plg_image_ascii"
 	_ "github.com/mickael-kerjean/filestash/server/plugin/plg_image_c"
+	_ "github.com/mickael-kerjean/filestash/server/plugin/plg_image_transcode"
 	_ "github.com/mickael-kerjean/filestash/server/plugin/plg_license"
 	_ "github.com/mickael-kerjean/filestash/server/plugin/plg_metadata_sqlite"
 	_ "github.com/mickael-kerjean/filestash/server/plugin/plg_search_stateless"
