@@ -46,7 +46,7 @@ func init() {
 	}
 
 	plugin_enable = func() bool {
-		transcoderEnabled := Config.Get("features.video.enable_transcoder").Schema(func(f *FormElement) *FormElement {
+		return Config.Get("features.video.enable_transcoder").Schema(func(f *FormElement) *FormElement {
 			if f == nil {
 				f = &FormElement{}
 			}
@@ -57,18 +57,6 @@ func init() {
 			f.Default = true
 			return f
 		}).Bool()
-
-		remuxerEnabled := Config.Get("features.video.enable_remuxer").Schema(func(f *FormElement) *FormElement {
-			if f == nil {
-				f = &FormElement{}
-			}
-			f.Name = "enable_remuxer"
-			f.Type = "enable"
-			f.Description = "Enable/Disable on demand video remuxing. The remuxer"
-			return f
-		}).Bool()
-
-		return transcoderEnabled && !remuxerEnabled
 	}
 	blacklist_format = func() string {
 		return Config.Get("features.video.blacklist_format").Schema(func(f *FormElement) *FormElement {
@@ -221,9 +209,13 @@ func hlsTranscodeHandler(ctx *App, res http.ResponseWriter, req *http.Request) {
 			"8x8dct=0",
 			"partitions=none",
 		}, ":"),
-		"-f", "mpegts",
-		"-vsync", "passthrough",
-		"pipe:1",
+		"-force_key_frames", fmt.Sprintf("expr:gte(t,n_forced*%d.000)", HLS_SEGMENT_LENGTH),
+		"-f", "ssegment",
+		"-segment_time", fmt.Sprintf("%d.00", HLS_SEGMENT_LENGTH),
+		"-segment_start_number", fmt.Sprintf("%d", segmentNumber),
+		"-initial_offset", fmt.Sprintf("%d.00", startTime),
+		"-vsync", "2",
+		"pipe:out%03d.ts",
 	}...)
 
 	var buffer bytes.Buffer
