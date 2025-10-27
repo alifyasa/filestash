@@ -1,5 +1,5 @@
 # STEP1: CLONE THE CODE
-FROM alpine/git as builder_prepare
+FROM alpine/git AS builder_prepare
 WORKDIR /home/
 ARG GIT_REPO=https://github.com/alifyasa/filestash
 ARG GIT_BRANCH=build
