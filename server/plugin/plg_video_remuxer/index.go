@@ -108,7 +108,7 @@ func init() {
 			blacklists := strings.Split(blacklist_format(), ",")
 			for i := 0; i < len(blacklists); i++ {
 				blacklists[i] = strings.TrimSpace(blacklists[i])
-				res.Write([]byte(fmt.Sprintf(`if(source.type == "%s"){ return source; } `, GetMimeType("."+blacklists[i])))))
+				res.Write([]byte(fmt.Sprintf(`if(source.type == "%s"){ return source; } `, GetMimeType("."+blacklists[i]))))
 			}
 			res.Write([]byte(`        source.src = source.src + "&transcode=hls";`))
 			res.Write([]byte(`        source.type = "application/x-mpegURL";`))
