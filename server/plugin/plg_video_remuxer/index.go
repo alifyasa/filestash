@@ -205,10 +205,9 @@ func hlsTranscodeHandler(ctx *App, res http.ResponseWriter, req *http.Request) {
 		"-ss", fmt.Sprintf("%d.00", startTime),
 		"-i", cachePath,
 		"-t", fmt.Sprintf("%d.00", HLS_SEGMENT_LENGTH),
-		"-c:v", "copy", // Copy video stream
-		"-c:a", "copy", // Copy audio stream
+		"-vcodec", "copy",
+		"-acodec", "copy",
 		"-f", "mpegts",
-		"-vsync", "passthrough",
 		"pipe:1",
 	}...)
 
