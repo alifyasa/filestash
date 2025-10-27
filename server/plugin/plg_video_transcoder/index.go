@@ -209,13 +209,9 @@ func hlsTranscodeHandler(ctx *App, res http.ResponseWriter, req *http.Request) {
 			"8x8dct=0",
 			"partitions=none",
 		}, ":"),
-		"-force_key_frames", fmt.Sprintf("expr:gte(t,n_forced*%d.000)", HLS_SEGMENT_LENGTH),
-		"-f", "ssegment",
-		"-segment_time", fmt.Sprintf("%d.00", HLS_SEGMENT_LENGTH),
-		"-segment_start_number", fmt.Sprintf("%d", segmentNumber),
-		"-initial_offset", fmt.Sprintf("%d.00", startTime),
-		"-vsync", "2",
-		"pipe:out%03d.ts",
+		"-f", "mpegts",
+		"-vsync", "passthrough",
+		"pipe:1",
 	}...)
 
 	var buffer bytes.Buffer
